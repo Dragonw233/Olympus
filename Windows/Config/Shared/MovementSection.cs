@@ -66,7 +66,7 @@ public sealed class MovementSection
         // Behavior subgroup
         ImGui.TextDisabled(Loc.T(LocalizedStrings.Movement.ReactionDelayLabel, "Reaction delay (ms)"));
         config.Movement.ReactionDelayMinMs = ConfigUIHelpers.IntSlider(
-            Loc.T("movement.reaction_delay_min", "Min##rd"),
+            Loc.T(LocalizedStrings.Movement.ReactionDelayMin, "Min##rd"),
             config.Movement.ReactionDelayMinMs,
             50,
             config.Movement.ReactionDelayMaxMs,
@@ -74,7 +74,7 @@ public sealed class MovementSection
             save,
             v => config.Movement.ReactionDelayMinMs = v);
         config.Movement.ReactionDelayMaxMs = ConfigUIHelpers.IntSlider(
-            Loc.T("movement.reaction_delay_max", "Max##rd"),
+            Loc.T(LocalizedStrings.Movement.ReactionDelayMax, "Max##rd"),
             config.Movement.ReactionDelayMaxMs,
             config.Movement.ReactionDelayMinMs,
             2000,
@@ -84,7 +84,7 @@ public sealed class MovementSection
 
         ImGui.TextDisabled(Loc.T(LocalizedStrings.Movement.ArrivalToleranceLabel, "Arrival tolerance (yalms)"));
         config.Movement.ArrivalToleranceMinYalms = ConfigUIHelpers.FloatSlider(
-            Loc.T("movement.arrival_tol_min", "Min##at"),
+            Loc.T(LocalizedStrings.Movement.ArrivalToleranceMin, "Min##at"),
             config.Movement.ArrivalToleranceMinYalms,
             0f,
             config.Movement.ArrivalToleranceMaxYalms,
@@ -93,7 +93,7 @@ public sealed class MovementSection
             save,
             v => config.Movement.ArrivalToleranceMinYalms = v);
         config.Movement.ArrivalToleranceMaxYalms = ConfigUIHelpers.FloatSlider(
-            Loc.T("movement.arrival_tol_max", "Max##at"),
+            Loc.T(LocalizedStrings.Movement.ArrivalToleranceMax, "Max##at"),
             config.Movement.ArrivalToleranceMaxYalms,
             config.Movement.ArrivalToleranceMinYalms,
             5f,
@@ -104,7 +104,7 @@ public sealed class MovementSection
 
         ImGui.TextDisabled(Loc.T(LocalizedStrings.Movement.InterCastPauseLabel, "Inter-cast pause (ms)"));
         config.Movement.InterCastPauseMinMs = ConfigUIHelpers.IntSlider(
-            Loc.T("movement.intercast_min", "Min##icp"),
+            Loc.T(LocalizedStrings.Movement.InterCastPauseMin, "Min##icp"),
             config.Movement.InterCastPauseMinMs,
             0,
             config.Movement.InterCastPauseMaxMs,
@@ -112,7 +112,7 @@ public sealed class MovementSection
             save,
             v => config.Movement.InterCastPauseMinMs = v);
         config.Movement.InterCastPauseMaxMs = ConfigUIHelpers.IntSlider(
-            Loc.T("movement.intercast_max", "Max##icp"),
+            Loc.T(LocalizedStrings.Movement.InterCastPauseMax, "Max##icp"),
             config.Movement.InterCastPauseMaxMs,
             config.Movement.InterCastPauseMinMs,
             2000,
@@ -147,14 +147,14 @@ public sealed class MovementSection
 
         // Advanced: raycast budget
         if (ConfigUIHelpers.SectionHeader(
-                Loc.T("movement.advanced", "Advanced (detection)"),
+                Loc.T(LocalizedStrings.Movement.AdvancedHeader, "Advanced (detection)"),
                 "MovementAdvanced",
                 false))
         {
             ConfigUIHelpers.BeginIndent();
 
             config.Movement.RaycastBudgetPerFrame = ConfigUIHelpers.IntSlider(
-                Loc.T("movement.raycast_budget", "Raycast budget/frame"),
+                Loc.T(LocalizedStrings.Movement.RaycastBudget, "Raycast budget/frame"),
                 config.Movement.RaycastBudgetPerFrame,
                 4, 128,
                 null,
@@ -171,7 +171,7 @@ public sealed class MovementSection
             var rank = i; // capture for closure
             var present = config.Movement.BossRanks.Contains(rank);
             // HighlightedCheckbox modifies present via ref and calls the save lambda when changed.
-            if (ImGui.Checkbox($"Rank {rank}##bossrank{rank}", ref present))
+            if (ImGui.Checkbox(Loc.TFormat(LocalizedStrings.Movement.RankLabel, "Rank {0}", rank) + $"##bossrank{rank}", ref present))
             {
                 if (present) config.Movement.BossRanks.Add(rank);
                 else config.Movement.BossRanks.Remove(rank);
@@ -204,13 +204,13 @@ public sealed class MovementSection
         ConfigUIHelpers.BeginIndent();
 
         ImGui.TextDisabled(Loc.T(LocalizedStrings.Movement.InteractKindsLabel, "Object kinds"));
-        DrawKindCheckbox("Treasure", ObjectKind.Treasure);
+        DrawKindCheckbox(Loc.T(LocalizedStrings.Movement.TreasureLabel, "Treasure"), ObjectKind.Treasure);
         ImGui.SameLine();
-        DrawKindCheckbox("EventObj", ObjectKind.EventObj);
+        DrawKindCheckbox(Loc.T(LocalizedStrings.Movement.EventObjLabel, "EventObj"), ObjectKind.EventObj);
         ImGui.SameLine();
-        DrawKindCheckbox("EventNpc", ObjectKind.EventNpc);
+        DrawKindCheckbox(Loc.T(LocalizedStrings.Movement.EventNpcLabel, "EventNpc"), ObjectKind.EventNpc);
         ImGui.SameLine();
-        DrawKindCheckbox("GatheringPoint", ObjectKind.GatheringPoint);
+        DrawKindCheckbox(Loc.T(LocalizedStrings.Movement.GatheringPointLabel, "GatheringPoint"), ObjectKind.GatheringPoint);
 
         config.Movement.InteractRangeYalms = ConfigUIHelpers.FloatSlider(
             Loc.T(LocalizedStrings.Movement.InteractRangeLabel, "Range (yalms)"),
