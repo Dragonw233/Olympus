@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Windowing;
@@ -619,7 +620,8 @@ public sealed class ConfigWindow : Window
 
     #region Preset Selector
 
-    private static readonly string[] PresetNames = Enum.GetNames<ConfigurationPreset>();
+    private static string[] GetLocalizedPresetNames() =>
+        Enum.GetValues<ConfigurationPreset>().Select(p => ConfigurationPresets.GetLocalizedName(p)).ToArray();
 
     private void DrawPresetSelector()
     {
@@ -630,15 +632,22 @@ public sealed class ConfigWindow : Window
         {
             ImGui.BeginTooltip();
             ImGui.Text(Loc.T(LocalizedStrings.Config.PresetTooltip, "Presets quickly configure settings for different content types."));
+            ImGui.Separator();
             ImGui.Text(Loc.T(LocalizedStrings.Config.PresetRaid, "Raid: Co-healer aware, balanced DPS"));
             ImGui.Text(Loc.T(LocalizedStrings.Config.PresetDungeon, "Dungeon: Solo healer, aggressive DPS"));
             ImGui.Text(Loc.T(LocalizedStrings.Config.PresetCasual, "Casual: Safe mode, healing priority"));
+            ImGui.Separator();
+            ImGui.Text(Loc.T(LocalizedStrings.Config.PresetDescConservative, "Safety first. Higher thresholds, defensive priority, resource reserves."));
+            ImGui.Text(Loc.T(LocalizedStrings.Config.PresetDescBalanced, "Middle-ground settings. Suitable for most content."));
+            ImGui.Text(Loc.T(LocalizedStrings.Config.PresetDescAggressive, "DPS maximization. Lower thresholds, offensive priority, no reserves."));
+            ImGui.Text(Loc.T(LocalizedStrings.Config.PresetDescProactive, "Timeline-aware. Pre-emptive abilities, burst window coordination."));
             ImGui.EndTooltip();
         }
 
+        var localizedPresetNames = GetLocalizedPresetNames();
         var currentPreset = (int)configuration.ActivePreset;
         ImGui.SetNextItemWidth(150);
-        if (ImGui.Combo("##PresetCombo", ref currentPreset, PresetNames, PresetNames.Length))
+        if (ImGui.Combo("##PresetCombo", ref currentPreset, localizedPresetNames, localizedPresetNames.Length))
         {
             selectedPreset = (ConfigurationPreset)currentPreset;
             if (selectedPreset != ConfigurationPreset.Custom)

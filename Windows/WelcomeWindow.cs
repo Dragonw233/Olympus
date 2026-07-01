@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Windowing;
@@ -16,7 +17,8 @@ public sealed class WelcomeWindow : Window
     private readonly Action _saveConfiguration;
     private readonly Action _openSettings;
 
-    private static readonly string[] PresetNames = Enum.GetNames<ConfigurationPreset>();
+    private static string[] GetLocalizedPresetNames() =>
+        Enum.GetValues<ConfigurationPreset>().Select(p => ConfigurationPresets.GetLocalizedName(p)).ToArray();
 
     private static readonly Vector4 GoldColor    = new(1.0f, 0.84f, 0.0f, 1.0f);
     private static readonly Vector4 DiscordColor = new(88f / 255f, 101f / 255f, 242f / 255f, 1.0f);
@@ -112,8 +114,9 @@ public sealed class WelcomeWindow : Window
         // Behavior preset
         ImGui.Text(Loc.T(LocalizedStrings.Welcome.PresetLabel, "Behavior Style:"));
         var currentPreset = (int)_configuration.ActivePreset;
+        var localizedPresetNames = GetLocalizedPresetNames();
         ImGui.SetNextItemWidth(-1);
-        if (ImGui.Combo("##WelcomePreset", ref currentPreset, PresetNames, PresetNames.Length))
+        if (ImGui.Combo("##WelcomePreset", ref currentPreset, localizedPresetNames, localizedPresetNames.Length))
         {
             var selected = (ConfigurationPreset)currentPreset;
             if (selected != ConfigurationPreset.Custom)

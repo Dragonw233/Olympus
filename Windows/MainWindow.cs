@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Textures;
@@ -15,7 +16,8 @@ namespace Olympus.Windows;
 
 public sealed class MainWindow : Window
 {
-    private static readonly string[] PresetNames = Enum.GetNames<ConfigurationPreset>();
+    private static string[] GetLocalizedPresetNames() =>
+        Enum.GetValues<ConfigurationPreset>().Select(p => ConfigurationPresets.GetLocalizedName(p)).ToArray();
 
     private readonly Configuration configuration;
     private readonly Action saveConfiguration;
@@ -68,7 +70,7 @@ public sealed class MainWindow : Window
 
         ImGui.TextColored(statusColor, statusText);
         ImGui.SameLine();
-        ImGui.TextDisabled(PresetNames[(int)configuration.ActivePreset]);
+        ImGui.TextDisabled(ConfigurationPresets.GetLocalizedName(configuration.ActivePreset));
 
         // Show active rotation
         var activeRotation = rotationManager.ActiveRotation;
@@ -136,8 +138,9 @@ public sealed class MainWindow : Window
         ImGui.Text(Loc.T(LocalizedStrings.Main.Preset, "Preset:"));
         ImGui.SameLine();
         var currentPreset = (int)configuration.ActivePreset;
+        var localizedPresetNames = GetLocalizedPresetNames();
         ImGui.SetNextItemWidth(-1);
-        if (ImGui.Combo("##MainPresetCombo", ref currentPreset, PresetNames, PresetNames.Length))
+        if (ImGui.Combo("##MainPresetCombo", ref currentPreset, localizedPresetNames, localizedPresetNames.Length))
         {
             var selected = (ConfigurationPreset)currentPreset;
             if (selected != ConfigurationPreset.Custom)

@@ -1,3 +1,5 @@
+using Olympus.Localization;
+
 namespace Olympus.Config;
 
 /// <summary>
@@ -69,18 +71,35 @@ public static class ConfigurationPresets
     };
 
     /// <summary>
-    /// Gets a human-readable description for a preset.
+    /// Gets a localized display name for a preset.
+    /// </summary>
+    public static string GetLocalizedName(ConfigurationPreset preset) => preset switch
+    {
+        ConfigurationPreset.Custom => Loc.T(LocalizedStrings.Config.PresetNameCustom, "Custom"),
+        ConfigurationPreset.Raid => Loc.T(LocalizedStrings.Config.PresetNameRaid, "Raid"),
+        ConfigurationPreset.Dungeon => Loc.T(LocalizedStrings.Config.PresetNameDungeon, "Dungeon"),
+        ConfigurationPreset.Casual => Loc.T(LocalizedStrings.Config.PresetNameCasual, "Casual"),
+        ConfigurationPreset.Conservative => Loc.T(LocalizedStrings.Config.PresetNameConservative, "Conservative"),
+        ConfigurationPreset.Balanced => Loc.T(LocalizedStrings.Config.PresetNameBalanced, "Balanced"),
+        ConfigurationPreset.Aggressive => Loc.T(LocalizedStrings.Config.PresetNameAggressive, "Aggressive"),
+        ConfigurationPreset.Proactive => Loc.T(LocalizedStrings.Config.PresetNameProactive, "Proactive"),
+        _ => preset.ToString()
+    };
+
+    /// <summary>
+    /// Gets a localized description for a preset.
     /// </summary>
     public static string GetDescription(ConfigurationPreset preset) => preset switch
     {
-        ConfigurationPreset.Raid => "Balanced healing/DPS for 8-player raids. Co-healer aware, proactive cooldowns.",
-        ConfigurationPreset.Dungeon => "Aggressive DPS for 4-player dungeons. Solo healer mode, reactive healing.",
-        ConfigurationPreset.Casual => "Safe mode for easy content. Conservative thresholds, healing priority.",
-        ConfigurationPreset.Conservative => "Safety first. Higher thresholds, defensive priority, resource reserves.",
-        ConfigurationPreset.Balanced => "Middle-ground settings. Suitable for most content.",
-        ConfigurationPreset.Aggressive => "DPS maximization. Lower thresholds, offensive priority, no reserves.",
-        ConfigurationPreset.Proactive => "Timeline-aware. Pre-emptive abilities, burst window coordination.",
-        _ => "Custom settings. Manually configured."
+        ConfigurationPreset.Custom => Loc.T(LocalizedStrings.Config.PresetDescCustom, "Custom settings. Manually configured."),
+        ConfigurationPreset.Raid => Loc.T(LocalizedStrings.Config.PresetDescRaid, "Balanced healing/DPS for 8-player raids. Co-healer aware, proactive cooldowns."),
+        ConfigurationPreset.Dungeon => Loc.T(LocalizedStrings.Config.PresetDescDungeon, "Aggressive DPS for 4-player dungeons. Solo healer mode, reactive healing."),
+        ConfigurationPreset.Casual => Loc.T(LocalizedStrings.Config.PresetDescCasual, "Safe mode for easy content. Conservative thresholds, healing priority."),
+        ConfigurationPreset.Conservative => Loc.T(LocalizedStrings.Config.PresetDescConservative, "Safety first. Higher thresholds, defensive priority, resource reserves."),
+        ConfigurationPreset.Balanced => Loc.T(LocalizedStrings.Config.PresetDescBalanced, "Middle-ground settings. Suitable for most content."),
+        ConfigurationPreset.Aggressive => Loc.T(LocalizedStrings.Config.PresetDescAggressive, "DPS maximization. Lower thresholds, offensive priority, no reserves."),
+        ConfigurationPreset.Proactive => Loc.T(LocalizedStrings.Config.PresetDescProactive, "Timeline-aware. Pre-emptive abilities, burst window coordination."),
+        _ => Loc.T(LocalizedStrings.Config.PresetDescCustom, "Custom settings. Manually configured.")
     };
 
     /// <summary>

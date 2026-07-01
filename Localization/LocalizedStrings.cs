@@ -50,6 +50,24 @@ public static class LocalizedStrings
         public const string PresetRaid = "config.preset_raid";
         public const string PresetDungeon = "config.preset_dungeon";
         public const string PresetCasual = "config.preset_casual";
+        // Preset names (for dropdown display)
+        public const string PresetNameCustom = "config.preset_name_custom";
+        public const string PresetNameRaid = "config.preset_name_raid";
+        public const string PresetNameDungeon = "config.preset_name_dungeon";
+        public const string PresetNameCasual = "config.preset_name_casual";
+        public const string PresetNameConservative = "config.preset_name_conservative";
+        public const string PresetNameBalanced = "config.preset_name_balanced";
+        public const string PresetNameAggressive = "config.preset_name_aggressive";
+        public const string PresetNameProactive = "config.preset_name_proactive";
+        // Preset descriptions (for detail text)
+        public const string PresetDescCustom = "config.preset_desc_custom";
+        public const string PresetDescRaid = "config.preset_desc_raid";
+        public const string PresetDescDungeon = "config.preset_desc_dungeon";
+        public const string PresetDescCasual = "config.preset_desc_casual";
+        public const string PresetDescConservative = "config.preset_desc_conservative";
+        public const string PresetDescBalanced = "config.preset_desc_balanced";
+        public const string PresetDescAggressive = "config.preset_desc_aggressive";
+        public const string PresetDescProactive = "config.preset_desc_proactive";
         public const string ResetToDefaults = "config.reset_to_defaults";
         public const string ResetConfirmation = "config.reset_confirmation";
         public const string ResetQuestion = "config.reset_question";
