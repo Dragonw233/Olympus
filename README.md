@@ -1,168 +1,213 @@
 # Olympus
 
-![Version](https://img.shields.io/github/v/release/RoseOfficial/Olympus?label=version)
-![Downloads](https://img.shields.io/github/downloads/RoseOfficial/Olympus/total)
-![Lines of Code](https://aschey.tech/tokei/github/RoseOfficial/Olympus?category=code)
-![Code Size](https://img.shields.io/github/languages/code-size/RoseOfficial/Olympus)
-![Last Commit](https://img.shields.io/github/last-commit/RoseOfficial/Olympus)
-![C#](https://img.shields.io/github/languages/top/RoseOfficial/Olympus)
+![版本](https://img.shields.io/github/v/release/Dragonw233/Olympus?label=version)
+![下载量](https://img.shields.io/github/downloads/Dragonw233/Olympus/total)
+![代码行数](https://aschey.tech/tokei/github/Dragonw233/Olympus?category=code)
+![代码大小](https://img.shields.io/github/languages/code-size/Dragonw233/Olympus)
+![最近提交](https://img.shields.io/github/last-commit/Dragonw233/Olympus)
+![C#](https://img.shields.io/github/languages/top/Dragonw233/Olympus)
 
-An intelligent rotation assistant for FFXIV that goes beyond automation. Olympus provides **intelligent decision-making** through fight prediction, party coordination, performance analytics, and an integrated training system to help you master your job.
+> **国服适配说明**：本仓库是基于 [RoseOfficial/Olympus](https://github.com/RoseOfficial/Olympus) 国际服版本的 **国服（卫月/CN）适配分支**，针对国服环境进行特化调整与本地化工作。欢迎提交 PR 提供国服特化功能！
 
-## What Makes Olympus Different
+Olympus 是为 FFXIV 设计的智能职业助手，不仅提供自动化，更通过 **智能决策**——战斗时间轴预测、队伍协作、性能分析和集成训练系统——帮助你精通自己的职业。
 
-| Feature | Description |
-|---------|-------------|
-| **Fight Awareness** | Timeline integration predicts raidwides and tankbusters before they happen |
-| **Party Coordination** | Multiple Olympus users coordinate heals, mitigations, and burst windows via IPC |
-| **Training Mode** | Learn *why* abilities are chosen with real-time explanations and skill tracking |
-| **Performance Analytics** | Track GCD uptime, cooldown efficiency, and compare against FFLogs |
+## 核心特性
 
-## Supported Jobs (21/21)
+| 特性 | 说明 |
+|------|------|
+| **战斗时间轴感知** | 集成时间轴数据，在团灭技和坦克炸弹 before 发生前预测 |
+| **队伍协作** | 多个 Olympus 用户通过 IPC 自动协调治疗、减伤和爆发窗口 |
+| **训练模式** | 实时解释技能选择原因，附带技能追踪，帮你理解 *为什么* 要这么打 |
+| **性能分析** | 追踪 GCD 覆盖率、冷却效率，并支持与 FFLogs 对比 |
 
-| Role | Jobs | Status |
+## 支持的职业 (21/21)
+
+| 职责 | 职业 | 状态 |
+|------|------|------|
+| **治疗者** | 白魔法师、学者、占星术士、贤者 | ✅ 完成 |
+| **坦克** | 骑士、战士、暗黑骑士、绝枪战士 | ✅ 完成 |
+| **近战DPS** | 武僧、龙骑士、忍者、武士、钐镰客、蝰蛇剑 | ✅ 完成 |
+| **物理远程** | 吟游诗人、机工士、舞者 | ✅ 完成 |
+| **法系** | 黑魔法师、召唤师、赤魔法师、绘灵法师 | ✅ 完成 |
+
+## 功能详解
+
+### 智能循环
+
+- **等级同步感知** - 技能根据当前等级自动调整
+- **资源管理** - 百合、以太之泉、剑气、热量等所有职业计量条
+- **oGCD 编织** - 最优能力技时机，不浪费 GCD
+- **身位指示器** - 近战 DPS 实时显示背面/侧面/正面，随连击进度更新；真北生效或目标无敌时自动隐藏
+- **智能 AoE 目标选择** - 方向性 AoE 技能（如振臂捶、链锯、生物推进器等）自动选择能命中最多敌人的目标
+- **触发追踪** - 永不浪费触发或让 Buff 掉落
+- **自动攻击** - 可选设置：拔刀后立即开始循环，无需等第一个 GCD
+
+### 战斗时间轴集成
+
+- **团灭技预测** - 提前套盾和预读治疗
+- **坦克炸弹感知** - 减伤技能对准即将到来的伤害
+- **阶段追踪** - 适应战斗阶段和机制
+- **零式绝境支持** - 当前层数完整时间轴数据
+
+### 队伍协作 (IPC)
+
+当多名队员使用 Olympus 时，自动协调：
+
+| 协作类型 | 功能 |
+|----------|------|
+| **治疗协调** | 防止对同一目标重复治疗 |
+| **AOE 治疗同步** | 错开团队治疗避免重叠 |
+| **减伤堆叠防止** | 避免同时使用神赐屏障 + 安稳精神 |
+| **复活协调** | 每名阵亡玩家只由一个治疗者复活 |
+| **爆发窗口** | DPS 对齐团队增伤 Buff 最大化输出 |
+| **坦克换仇** | 协调挑衅/退避序列 |
+| **打断优先级** | 每个可打断技能只由一人负责 |
+
+### 视觉叠加层 (Draw Helper)
+
+可选的游戏内叠加层，辅助站位和距离感知：
+
+| 功能 | 说明 |
+|------|------|
+| **攻击距离环** | 近战和远程攻击距离以圆环显示，进入舒适距离后淡出 |
+| **敌人碰撞箱** | 目标敌人的碰撞箱绘制在屏幕上，精确判断距离 |
+| **身位区域** | 目标的背面、侧面和正面区域显示，清楚看到该站的位置 |
+
+在 **设置 → Draw Helper** 中可切换和自定义外观。
+
+### 性能分析
+
+- **实时指标** - GCD 覆盖率、死亡次数、战斗中濒临死亡次数
+- **战斗后评分** - 等级制 (S/A/B/C/D) 并附带详细分析
+- ** downtime 分析** - 分类记录丢失的 GCD（移动、死亡、机制）
+- **冷却追踪** - 漂移检测和错失机会提醒
+- **会话历史** - 追踪多次战斗中的进步
+- **FFLogs 集成** - 将你的表现与社区 Parse 对比
+
+### 训练模式
+
+从"乘客"转变为主动操作者，配备智能教练：
+
+| 功能 | 说明 |
+|------|------|
+| **实时解释** | 实时查看每个技能 *为什么* 被选择 |
+| **实时提示** | 战斗中针对困难概念的教练提示 |
+| **决策验证** | 即时反馈：最优 (✓)、可接受 (≈)、次优 (✗) |
+| **教练个性** | 4 种反馈风格：鼓励型、分析型、严格型、沉默型 |
+| **间隔重复** | 知识保留追踪，附带遗忘曲线 |
+| **525+ 概念** | 覆盖全部 21 个职业的专属知识 |
+| **147 课程** | 从基础到优化的渐进式学习 |
+| **735 测验题** | 用场景问题验证理解程度 |
+| **技能检测** | 自动检测初学者/中级/高级水平 |
+| **概念掌握** | 追踪战斗中的成功应用 |
+| **自适应细节** | 解释根据技能水平调整 |
+
+## 安装
+
+### 自定义插件仓库（推荐）
+
+#### 国服（卫月/XIVLauncherCN）
+
+1. 游戏中打开 Dalamud 插件安装器
+2. 进入 **设置**（齿轮图标）→ **实验性**
+3. 在"自定义插件仓库"下添加：
+   ```
+   https://raw.githubusercontent.com/Dragonw233/Olympus/main/repo.json
+   ```
+4. 点击 **保存并关闭**
+5. 搜索 "Olympus" 并安装
+
+#### 国际服（XIVLauncher）
+
+1. 游戏中打开 Dalamud 插件安装器
+2. 进入 **Settings** → **Experimental**
+3. 在 "Custom Plugin Repositories" 下添加：
+   ```
+   https://raw.githubusercontent.com/Dragonw233/Olympus/main/repo.json
+   ```
+4. 点击 **Save and Close**
+5. 搜索 "Olympus" 并安装
+
+更新会自动推送。
+
+### 手动安装
+
+1. 从 [Releases](https://github.com/Dragonw233/Olympus/releases) 下载 `Olympus.zip`
+2. 解压到 `%APPDATA%\XIVLauncherCN\installedPlugins\Olympus\`（国服）或 `%APPDATA%\XIVLauncher\installedPlugins\Olympus\`（国际服）
+3. 重新加载插件或重启游戏
+
+## 快速开始
+
+1. `/olympus` - 打开主窗口
+2. 点击 **启用** 激活助手
+3. 用任意支持的职业进入战斗
+4. 打开 **训练** 边玩边学
+5. 打开 **分析** 追踪表现
+6. 打开 **叠加层** 启用视觉辅助
+
+## 命令
+
+| 命令 | 说明 |
+|------|------|
+| `/olympus` | 打开主窗口 |
+| `/olympus toggle` | 启用/禁用循环 |
+| `/olympus debug` | 打开调试窗口 |
+
+## 职业模块
+
+每个循环以希腊神祇命名：
+
+| 职责 | 职业 | 模块 | 职责 | 职业 | 模块 |
+|------|------|------|------|------|------|
+| 治疗 | 白魔法师 | Apollo | 近战 | 钐镰客 | Thanatos |
+| 治疗 | 学者 | Athena | 近战 | 蝰蛇剑 | Echidna |
+| 治疗 | 占星术士 | Astraea | 远程 | 吟游诗人 | Calliope |
+| 治疗 | 贤者 | Asclepius | 远程 | 机工士 | Prometheus |
+| 坦克 | 骑士 | Themis | 远程 | 舞者 | Terpsichore |
+| 坦克 | 战士 | Ares | 法系 | 黑魔法师 | Hecate |
+| 坦克 | 暗黑骑士 | Nyx | 法系 | 召唤师 | Persephone |
+| 坦克 | 绝枪战士 | Hephaestus | 法系 | 赤魔法师 | Circe |
+| 近战 | 武僧 | Kratos | 法系 | 绘灵法师 | Iris |
+| 近战 | 龙骑士 | Zeus | | | |
+| 近战 | 忍者 | Hermes | | | |
+| 近战 | 武士 | Nike | | | |
+
+## 开发阶段
+
+| 阶段 | 状态 | 里程碑 |
 |------|------|--------|
-| **Healers** | White Mage, Scholar, Astrologian, Sage | ✅ Complete |
-| **Tanks** | Paladin, Warrior, Dark Knight, Gunbreaker | ✅ Complete |
-| **Melee DPS** | Monk, Dragoon, Ninja, Samurai, Reaper, Viper | ✅ Complete |
-| **Ranged Physical** | Bard, Machinist, Dancer | ✅ Complete |
-| **Casters** | Black Mage, Summoner, Red Mage, Pictomancer | ✅ Complete |
+| 阶段 1 | ✅ 完成 | 全部 21 个战斗职业 |
+| 阶段 2 | ✅ 完成 | 战斗时间轴集成 |
+| 阶段 3 | ✅ 完成 | 通过 IPC 完整队伍协作 |
+| 阶段 4 | ✅ 完成 | 性能分析 + FFLogs |
+| 阶段 5 | ✅ 完成 | 训练模式 + 个性化教练 (v4.0) |
 
-## Core Features
+## 本地化进度
 
-### Intelligent Rotation
-- **Level-sync awareness** - Abilities adjust to your current level
-- **Resource management** - Lily, Aetherflow, Kenki, Heat, and all job gauges
-- **oGCD weaving** - Optimal ability timing without clipping
-- **Positional indicator** - Real-time rear/flank/front display for melee DPS, updating as your combo progresses; suppressed automatically when True North is active or target is immune
-- **Smart AoE targeting** - Directional AoE abilities (Howling Fist, Chain Saw, Bioblaster, etc.) automatically target the enemy that hits the most targets
-- **Proc tracking** - Never waste a proc or let buffs fall off
-- **Auto-attack start** - Optional setting to begin the rotation as soon as your weapon is drawn, rather than waiting for the first GCD
+- ✅ 预设栏完整汉化
+- ✅ Movement 界面完整汉化
+- ✅ 嵌入资源修复（JSON 正确加载）
+- 🔄 技能名翻译（进行中）
 
-### Fight Timeline Integration
-- **Raidwide prediction** - Pre-shield and pre-heal before damage hits
-- **Tankbuster awareness** - Mitigations timed for incoming hits
-- **Phase tracking** - Adapts to fight phases and mechanics
-- **Arcadion Savage support** - Full timeline data for current tier
+## 贡献
 
-### Party Coordination (IPC)
-When multiple party members use Olympus, they coordinate automatically:
+本仓库欢迎所有形式的贡献！
 
-| Coordination Type | What It Does |
-|-------------------|--------------|
-| **Heal Coordination** | Prevents double-healing the same target |
-| **AOE Heal Sync** | Staggers party heals to avoid overlap |
-| **Mitigation Stacking** | Prevents wasting Divine Veil + Temperance together |
-| **Raise Coordination** | Only one healer raises each dead player |
-| **Burst Windows** | DPS align raid buffs for maximum damage |
-| **Tank Swaps** | Coordinated Provoke/Shirk sequences |
-| **Interrupt Priority** | One player per interruptible cast |
+- **Bug 报告**：请在 [Issues](https://github.com/Dragonw233/Olympus/issues) 提交
+- **功能建议**：同样欢迎在 Issues 中提出
+- **Pull Request**：欢迎提交 PR 提供 **国服特化功能**，包括但不限于：
+  - 国服特有机制的适配
+  - 本地化改进
+  - 国服环境相关的优化
+  - 其他对国服玩家有用的功能
 
-### Visual Overlay (Draw Helper)
-An optional in-game overlay to aid positioning and range awareness:
+**注意**：本仓库是基于 [RoseOfficial/Olympus](https://github.com/RoseOfficial/Olympus) 的分支，主要服务于国服（卫月/CN）玩家。如果你是国际服玩家，请使用原版仓库。
 
-| Feature | Description |
-|---------|-------------|
-| **Attack Range Rings** | Melee and ranged attack ranges displayed as rings around your character, fading when comfortably in range |
-| **Enemy Hitboxes** | Targeted enemy hitbox drawn on screen for precise distance judgement |
-| **Positional Zones** | Rear, flank, and front zones shown on your target so you can see exactly where to stand |
+## 许可证
 
-Toggle and appearance options available in **Settings → Draw Helper**.
+本项目按原样提供，仅供 FFXIV 个人使用。
 
-### Performance Analytics
-- **Real-time metrics** - GCD uptime, deaths, near-deaths during combat
-- **Post-fight scoring** - Letter grades (S/A/B/C/D) with breakdown
-- **Downtime analysis** - Categorizes lost GCDs (movement, death, mechanics)
-- **Cooldown tracking** - Drift detection and missed opportunity alerts
-- **Session history** - Track improvement over multiple fights
-- **FFLogs integration** - Compare your performance to community parses
+## 致谢
 
-### Training Mode
-Transform from passenger to pilot with intelligent coaching:
-
-| Feature | Description |
-|---------|-------------|
-| **Live Explanations** | See *why* each ability is chosen in real-time |
-| **Real-Time Hints** | In-combat coaching tips for struggling concepts |
-| **Decision Validation** | Instant feedback: optimal (✓), acceptable (≈), or suboptimal (✗) |
-| **Coaching Personality** | 4 feedback styles: Encouraging, Analytical, Strict, Silent |
-| **Spaced Repetition** | Knowledge retention tracking with forgetting curves |
-| **525+ Concepts** | Job-specific knowledge across all 21 jobs |
-| **147 Lessons** | Progressive learning from basics to optimization |
-| **735 Quiz Questions** | Validate understanding with scenario questions |
-| **Skill Detection** | Auto-detects Beginner/Intermediate/Advanced level |
-| **Concept Mastery** | Tracks successful application in combat |
-| **Adaptive Detail** | Explanations adjust to your skill level |
-
-## Installation
-
-### Custom Repository (Recommended)
-1. Open Dalamud Plugin Installer in-game
-2. Go to **Settings** (gear icon) → **Experimental**
-3. Under "Custom Plugin Repositories", add:
-   ```
-   https://raw.githubusercontent.com/RoseOfficial/Olympus/main/repo.json
-   ```
-4. Click **Save and Close**
-5. Search for "Olympus" and install
-
-Updates are delivered automatically.
-
-### Manual Installation
-1. Download `Olympus.zip` from [Releases](https://github.com/RoseOfficial/Olympus/releases)
-2. Extract to `%APPDATA%\XIVLauncher\installedPlugins\Olympus\`
-3. Reload plugins or restart the game
-
-## Quick Start
-
-1. `/olympus` - Open the main window
-2. Click **Enable** to activate
-3. Enter combat on any supported job
-4. Open **Training** to learn as you play
-5. Open **Analytics** to track performance
-6. Open **Overlay** to enable the visual draw helper
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `/olympus` | Open main window |
-| `/olympus toggle` | Enable/disable rotation |
-| `/olympus debug` | Open debug window |
-
-## Job Modules
-
-Each rotation is named after a Greek deity:
-
-| Role | Job | Module | Role | Job | Module |
-|------|-----|--------|------|-----|--------|
-| Healer | White Mage | Apollo | Melee | Reaper | Thanatos |
-| Healer | Scholar | Athena | Melee | Viper | Echidna |
-| Healer | Astrologian | Astraea | Ranged | Bard | Calliope |
-| Healer | Sage | Asclepius | Ranged | Machinist | Prometheus |
-| Tank | Paladin | Themis | Ranged | Dancer | Terpsichore |
-| Tank | Warrior | Ares | Caster | Black Mage | Hecate |
-| Tank | Dark Knight | Nyx | Caster | Summoner | Persephone |
-| Tank | Gunbreaker | Hephaestus | Caster | Red Mage | Circe |
-| Melee | Monk | Kratos | Caster | Pictomancer | Iris |
-| Melee | Dragoon | Zeus | | | |
-| Melee | Ninja | Hermes | | | |
-| Melee | Samurai | Nike | | | |
-
-## Development Phases
-
-| Phase | Status | Milestone |
-|-------|--------|-----------|
-| Phase 1 | ✅ Complete | All 21 combat jobs |
-| Phase 2 | ✅ Complete | Fight timeline integration |
-| Phase 3 | ✅ Complete | Full party coordination via IPC |
-| Phase 4 | ✅ Complete | Performance analytics + FFLogs |
-| Phase 5 | ✅ Complete | Training mode + personalized coaching (v4.0) |
-
-## Contributing
-
-Issues and pull requests welcome at [GitHub](https://github.com/RoseOfficial/Olympus).
-
-## License
-
-This project is provided as-is for personal use with FFXIV.
+- 感谢 [RoseOfficial](https://github.com/RoseOfficial) 开发并开源原始项目
+- 感谢国服 FFXIV 社区的所有贡献者
