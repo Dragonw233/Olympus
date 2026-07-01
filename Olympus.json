@@ -1,9 +1,14 @@
 {
   "Name": "Olympus",
-  "Author": "Rose",
-  "Punchline": "Intelligent White Mage rotation assistant",
-  "Description": "Apollo: An intelligent White Mage rotation assistant that handles healing, damage, defensive cooldowns, and resource management with full level-sync awareness.",
-  "RepoUrl": "https://github.com/RoseOfficial/Olympus",
-  "Tags": ["whm", "white-mage", "combat", "rotation"],
-  "DalamudApiLevel": 15
+  "Author": "Rose, Dragonw233, Tabris",
+  "Punchline": "智能职业循环助手",
+  "Description": "Olympus: 智能 FFXIV 职业助手，支持时间轴预测、队伍协作、性能分析和训练模式。国服（卫月）适配版本。",
+  "InternalName": "Olympus",
+  "AssemblyVersion": "4.17.2.0",
+  "RepoUrl": "https://github.com/Dragonw233/Olympus",
+  "ApplicableVersion": "any",
+  "Tags": ["rotation", "combat", "healer", "tank", "dps", "国服", "卫月"],
+  "DalamudApiLevel": 15,
+  "LoadPriority": 0,
+  "IconUrl": "https://raw.githubusercontent.com/RoseOfficial/Olympus/main/icon.png"
 }

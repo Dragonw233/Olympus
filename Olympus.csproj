@@ -42,6 +42,14 @@
     <EmbeddedResource Include="Localization\Loc\olympus_ru.json" />
   </ItemGroup>
 
+  <!-- Copy localization files to output directory -->
+  <Target Name="CopyLocFiles" AfterTargets="Build">
+    <ItemGroup>
+      <LocFiles Include="Localization\Loc\*.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(LocFiles)" DestinationFolder="$(OutputPath)Localization\Loc\" SkipUnchangedFiles="true" />
+  </Target>
+
   <!-- Embedded changelog for in-game display -->
   <ItemGroup>
     <EmbeddedResource Include="CHANGELOG.md" />

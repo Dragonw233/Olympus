@@ -102,12 +102,19 @@ jobs:
       # ------------------------------------------------------------------
       # 3. Ensure Olympus.json is in build output for DalamudPlugins scanner
       # ------------------------------------------------------------------
-      - name: Copy Olympus.json to Build Output
+      - name: Copy Olympus.json and Localization Files to Build Output
         if: steps.version.outputs.changed == 'true'
         shell: pwsh
         run: |
+          # Copy Olympus.json (plugin manifest)
           if (Test-Path .\Olympus.json) {
             Copy-Item .\Olympus.json .\build\Olympus.json -Force
+          }
+          
+          # Copy localization files
+          if (Test-Path .\Localization\Loc\) {
+            New-Item -ItemType Directory -Force -Path .\build\Localization\Loc | Out-Null
+            Copy-Item .\Localization\Loc\*.json .\build\Localization\Loc\ -Force
           }
 
       - name: Pack Release Zip
