@@ -103,8 +103,9 @@ public sealed class OlympusLocalization : IDisposable
             return code;
         }
 
-        // Default to English
-        return "en";
+        // 国服修复：ClientLanguage 不在 LanguageCodes（4种官方语言）中时，
+        // 默认中文而非英文。国服 Dalamud 的 ClientLanguage 不是 en/ja/de/fr。
+        return "zh";
     }
 
     /// <summary>
