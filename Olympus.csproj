@@ -1,8 +1,8 @@
-<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+<Project Sdk="Dalamud.CN.NET.Sdk/15.0.0">
 
   <PropertyGroup>
     <Version>4.17.2</Version>
-    <DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+    <DalamudLibPath>$(AppData)\XIVLauncherCN\addon\Hooks\dev\</DalamudLibPath>
   </PropertyGroup>
 
   <!-- Exclude test project from main build -->
