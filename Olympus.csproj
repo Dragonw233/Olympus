@@ -31,7 +31,15 @@
 
   <!-- Embedded localization files -->
   <ItemGroup>
-    <EmbeddedResource Include="Localization\Loc\*.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_en.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_zh.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_ja.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_de.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_fr.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_ko.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_es.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_pt.json" />
+    <EmbeddedResource Include="Localization\Loc\olympus_ru.json" />
   </ItemGroup>
 
   <!-- Embedded changelog for in-game display -->
