@@ -1,7 +1,7 @@
 <Project Sdk="Dalamud.CN.NET.Sdk/15.0.0">
 
   <PropertyGroup>
-    <Version>4.17.4</Version>
+    <Version>4.17.5</Version>
     <DalamudLibPath>$(AppData)\XIVLauncherCN\addon\Hooks\dev\</DalamudLibPath>
   </PropertyGroup>
 
