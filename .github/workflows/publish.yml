@@ -149,14 +149,17 @@ jobs:
         run: |
           # Clone DalamudPlugins repo
           git clone https://x-access-token:$env:PUSH_TOKEN@github.com/Dragonw233/DalamudPlugins.git .\dalamud-plugins
-
+          
           # Copy latest.zip to plugins/Olympus/
           New-Item -ItemType Directory -Force -Path .\dalamud-plugins\plugins\Olympus | Out-Null
           Copy-Item .\build\latest.zip .\dalamud-plugins\plugins\Olympus\latest.zip -Force
-
+          
+          # Switch to DalamudPlugins directory
+          Push-Location .\dalamud-plugins
+          
           # Regenerate pluginmaster.json
           python generate_pluginmaster.py
-
+          
           # Commit and push
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -168,6 +171,9 @@ jobs:
           } else {
             Write-Host "No changes to commit in DalamudPlugins."
           }
+          
+          # Return to original directory
+          Pop-Location
 
       # ------------------------------------------------------------------
       # 6. Bump version in Olympus.csproj for next release
